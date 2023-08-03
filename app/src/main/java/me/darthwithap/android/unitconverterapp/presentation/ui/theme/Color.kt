@@ -1,4 +1,4 @@
-package me.darthwithap.android.unitconverterapp.ui.theme
+package me.darthwithap.android.unitconverterapp.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
