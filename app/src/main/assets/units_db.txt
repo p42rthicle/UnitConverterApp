@@ -1,0 +1,9 @@
+* Length
+1, meter, m, 1.0, 0.0
+2, kilometer, km, 1000.0, 0.0
+3, centimeter, cm, 0.01, 0.0
+
+* Weight
+1, kilogram, kg, 1.0, 0.0
+2, gram, g, 0.001, 0.0
+3, milligram, mg, 0.00001, 0.0
