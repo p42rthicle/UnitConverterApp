@@ -1,58 +1,58 @@
 * Length
-1, meter, m, 1.0, 0.0
-2, kilometer, km, 1000.0, 0.0
-3, centimeter, cm, 0.01, 0.0
-4, millimeter, mm, 0.001, 0.0
-5, mile, mi, 1609.34, 0.0
-6, yard, yd, 0.9144, 0.0
-7, foot, ft, 0.3048, 0.0
-8, inch, in, 0.0254, 0.0
+0, meter, m, 1.0, 0.0
+0, kilometer, km, 0.001, 0.0
+0, centimeter, cm, 100.0, 0.0
+0, millimeter, mm, 1000.0, 0.0
+0, mile, mi, 0.000621371, 0.0
+0, yard, yd, 1.09361, 0.0
+0, foot, ft, 3.28084, 0.0
+0, inch, in, 39.3701, 0.0
 
 * Weight
-1, kilogram, kg, 1.0, 0.0
-2, gram, g, 0.001, 0.0
-3, milligram, mg, 0.000001, 0.0
-4, tonne, t, 1000.0, 0.0
-5, pound, lb, 0.453592, 0.0
-6, ounce, oz, 0.0283495, 0.0
+0, kilogram, kg, 1.0, 0.0
+0, gram, g, 1000.0, 0.0
+0, milligram, mg, 1000000.0, 0.0
+0, tonne, t, 0.001, 0.0
+0, pound, lb, 2.20462, 0.0
+0, ounce, oz, 35.274, 0.0
 
 * Volume
-1, liter, l, 1.0, 0.0
-2, milliliter, ml, 0.001, 0.0
-3, gallon, gal, 3.78541, 0.0
-4, quart, qt, 0.946353, 0.0
-5, pint, pt, 0.473176, 0.0
-6, fluid ounce, fl oz, 0.0295735, 0.0
-7, cubic meter, m^3, 1000.0, 0.0
-8, cubic centimeter, cm^3, 0.001, 0.0
+0, liter, l, 1.0, 0.0
+0, milliliter, ml, 1000.0, 0.0
+0, gallon, gal, 0.264172, 0.0
+0, quart, qt, 1.05669, 0.0
+0, pint, pt, 2.11338, 0.0
+0, fluid ounce, fl oz, 33.814, 0.0
+0, cubic meter, m^3, 0.001, 0.0
+0, cubic centimeter, cm^3, 1000.0, 0.0
 
 * Temperature
-1, celsius, °C, 1.0, 0.0
-2, fahrenheit, °F, 0.555556, -32.0
-3, kelvin, K, 1.0, 273.15
+0, celsius, °C, 1.0, 0.0
+0, fahrenheit, °F, 0.555556, -32.0
+0, kelvin, K, 1.0, 273.15
 
 * Speed
-1, meters per second, m/s, 1.0, 0.0
-2, kilometers per hour, km/h, 0.277778, 0.0
-3, miles per hour, mph, 0.44704, 0.0
-4, feet per second, ft/s, 0.3048, 0.0
-5, knots, kn, 0.514444, 0.0
+0, meters per second, m/s, 1.0, 0.0
+0, kilometers per hour, km/h, 3.6, 0.0
+0, miles per hour, mph, 2.23694, 0.0
+0, feet per second, ft/s, 3.28084, 0.0
+0, knots, kn, 1.94384, 0.0
 
 * Time
-1, second, s, 1.0, 0.0
-2, minute, min, 60.0, 0.0
-3, hour, h, 3600.0, 0.0
-4, day, d, 86400.0, 0.0
-5, week, wk, 604800.0, 0.0
-6, month, mo, 2629800.0, 0.0 (Average month)
-7, year, yr, 31557600.0, 0.0 (Solar year)
+0, second, s, 3600.0, 0.0
+0, minute, min, 60.0, 0.0
+0, hour, h, 1.0, 0.0
+0, day, d, 0.0416667, 0.0
+0, week, wk, 0.00595238, 0.0
+0, month, mon, 0.00136986 , 0.0
+0, year, yr, 0.000114079, 0.0
 
 * Area
-1, square meter, m^2, 1.0, 0.0
-2, square kilometer, km^2, 1000000.0, 0.0
-3, square centimeter, cm^2, 0.0001, 0.0
-4, square millimeter, mm^2, 0.000001, 0.0
-5, acre, ac, 4046.86, 0.0
-6, square mile, mi^2, 2589988.11, 0.0
-7, square yard, yd^2, 0.836127, 0.0
-8, square foot, ft^2, 0.092903, 0.0
+0, square meter, m^2, 1.0, 0.0
+0, square kilometer, km^2, 0.000001, 0.0
+0, square centimeter, cm^2, 10000.0, 0.0
+0, square millimeter, mm^2, 1000000.0, 0.0
+0, acre, ac, 0.000247105, 0.0
+0, square mile, mi^2, 0.000000386102, 0.0
+0, square yard, yd^2, 1.19599, 0.0
+0, square foot, ft^2, 10.7639, 0.0

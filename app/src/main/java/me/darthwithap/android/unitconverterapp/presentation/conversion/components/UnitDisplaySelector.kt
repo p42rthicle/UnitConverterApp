@@ -1,0 +1,150 @@
+package me.darthwithap.android.unitconverterapp.presentation.conversion.components
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.intl.Locale
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import me.darthwithap.android.unitconverterapp.R
+import me.darthwithap.android.unitconverterapp.domain.models.SingleUnit
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun UnitDisplaySelector(
+    modifier: Modifier = Modifier,
+    uiCollection: UiCollection?,
+    singleUnit: SingleUnit,
+    value: String,
+    isEditable: Boolean = false,
+    isDropDown: Boolean = true,
+    hasMoreMenu: Boolean = false,
+    onInputValueChanged: (String) -> Unit = { },
+    onConvert: () -> Unit,
+    isDropDownOpen: Boolean = false,
+    onUnitDropDownClick: () -> Unit,
+    onDropDownDismiss: () -> Unit,
+    onUnitSelected: (SingleUnit) -> Unit
+) {
+  val focusManager = LocalFocusManager.current
+  val keyboardController = LocalSoftwareKeyboardController.current
+  val boxHorizontalPadding = if (hasMoreMenu) 8.dp else 16.dp
+  val boxVerticalPadding = if (hasMoreMenu) 12.dp else 32.dp
+  Box(
+      modifier = modifier
+          .clip(RoundedCornerShape(16.dp))
+          .background(
+              if (isEditable) MaterialTheme.colorScheme.surfaceVariant
+              else MaterialTheme.colorScheme.background
+          )
+          .padding(
+              horizontal = boxHorizontalPadding,
+              vertical = boxVerticalPadding
+          )
+  
+  ) {
+    Row {
+      Column(modifier = Modifier
+          .fillMaxWidth(),
+          horizontalAlignment = Alignment.CenterHorizontally,
+          verticalArrangement = Arrangement.SpaceEvenly) {
+        if (isDropDown) {
+          UnitDropDown(
+              modifier = Modifier.padding(horizontal = 10.dp),
+              units = uiCollection?.collection?.units ?: emptyList(),
+              singleUnit = singleUnit,
+              tintColor = uiCollection?.tintColor ?: MaterialTheme.colorScheme.primary,
+              isOpen = isDropDownOpen,
+              onClick = onUnitDropDownClick,
+              onDismiss = onDropDownDismiss,
+              onUnitSelected = onUnitSelected
+          )
+        } else {
+          Text(
+              text = singleUnit.name.capitalize(Locale.current),
+              style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
+          )
+        }
+        if (!hasMoreMenu) {
+          Spacer(modifier = Modifier.height(10.dp))
+        }
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+          if (!isEditable) {
+            Text(
+                text = value,
+                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold),
+                color = MaterialTheme.colorScheme.onSurface
+            )
+          } else {
+            BasicTextField(
+                value = value,
+                onValueChange = onInputValueChanged,
+                maxLines = 1,
+                textStyle = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    textAlign = TextAlign.End
+                ),
+                keyboardActions = KeyboardActions(onDone = {
+                  onConvert()
+                  focusManager.clearFocus()
+                  keyboardController?.hide()
+                }),
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Done
+                ),
+                singleLine = true,
+            )
+          }
+          
+          Spacer(modifier = Modifier.width(12.dp))
+          RoundedUnitSymbol(symbolColor = uiCollection?.tintColor
+              ?: MaterialTheme.colorScheme.primary, symbol = singleUnit.symbol)
+        }
+      }
+      if (hasMoreMenu) {
+        IconButton(onClick = { /*TODO*/ }) {
+          Icon(
+              painter = painterResource(id = R.drawable.ic_dots_horizontal),
+              contentDescription = stringResource(id = R.string.more_menu)
+          )
+        }
+      }
+    }
+  }
+}

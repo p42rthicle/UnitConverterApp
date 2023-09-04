@@ -7,4 +7,4 @@ enum class ConversionError(error: String) {
   GENERAL_ERROR("Some Error Occurred")
 }
 
-class ConversionException(error: ConversionError) : Exception(error.name)
+class ConversionException(val error: ConversionError) : Exception(error.name)

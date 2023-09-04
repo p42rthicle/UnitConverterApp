@@ -12,7 +12,6 @@ class RecentConversionUnitsUseCase(
 ) {
   suspend operator fun invoke(): Flow<ConversionResult<List<ConversionUnits>>> {
     return flow {
-      emit(ConversionResult.Loading())
 
       try {
         repository.getFavouriteConversionUnits().collect {

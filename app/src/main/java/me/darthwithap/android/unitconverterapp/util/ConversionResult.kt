@@ -5,5 +5,4 @@ sealed class ConversionResult<T>(
 ) {
   class Success<T>(data: T) : ConversionResult<T>(data)
   class Error<T>(e: ConversionException) : ConversionResult<T>(error = e)
-  class Loading<T> : ConversionResult<T>()
 }

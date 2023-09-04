@@ -3,6 +3,7 @@ package me.darthwithap.android.unitconverterapp.data.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import me.darthwithap.android.unitconverterapp.domain.models.Conversion
+import me.darthwithap.android.unitconverterapp.domain.models.SingleUnit
 
 @Entity
 data class ConversionEntity(
@@ -16,9 +17,12 @@ data class ConversionEntity(
   val isFavourite: Boolean = false,
   val timestamp: Long = System.currentTimeMillis()
 ) {
-  fun toDomainModel(): Conversion {
+  fun toDomainModel(
+    fromUnit: SingleUnit,
+    toUnit: SingleUnit
+    ): Conversion {
     return Conversion(
-      id, fromUnit, toUnit, inputValue, outputValue, collectionName
+      id, fromUnit, toUnit, inputValue, outputValue, fromUnit.collectionName
     )
   }
 }

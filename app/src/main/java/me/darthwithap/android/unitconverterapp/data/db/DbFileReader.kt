@@ -5,7 +5,7 @@ import me.darthwithap.android.unitconverterapp.data.models.CollectionDto
 import me.darthwithap.android.unitconverterapp.data.models.SingleUnitDto
 import me.darthwithap.android.unitconverterapp.util.UNITS_DB_FILE_NAME
 
-class DbFileReader constructor(
+class DbFileReader(
   private val context: Context
 ) {
   private val collections = mutableListOf<CollectionDto>()
@@ -37,8 +37,8 @@ class DbFileReader constructor(
                 currentCollection?.name ?: "",
                 parts[1],
                 parts[2],
-                parts[3].toFloat(),
-                parts[4].toFloat()
+                parts[3].toDouble(),
+                parts[4].toDouble()
               )
             )
           }

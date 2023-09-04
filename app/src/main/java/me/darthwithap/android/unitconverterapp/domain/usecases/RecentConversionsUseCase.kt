@@ -12,8 +12,6 @@ class RecentConversionsUseCase(
 ) {
   suspend operator fun invoke(): Flow<ConversionResult<List<Conversion>>> {
     return flow {
-      emit(ConversionResult.Loading())
-
       try {
         repository.getRecentConversions().collect {
           emit(ConversionResult.Success(it))

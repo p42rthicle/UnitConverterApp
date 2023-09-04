@@ -12,7 +12,6 @@ class FavouriteConversionsUseCase(
 ) {
   suspend operator fun invoke(): Flow<ConversionResult<List<Conversion>>> {
     return flow {
-      emit(ConversionResult.Loading())
 
       try {
         repository.getFavouriteConversions().collect {

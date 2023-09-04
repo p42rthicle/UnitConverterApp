@@ -1,3 +1,13 @@
 <resources>
   <string name="app_name">UnitConverterApp</string>
+  <string name="error_db">Error with database</string>
+  <string name="error_invalid_input">Invalid input value</string>
+  <string name="error_same_units">Can\'t convert to same units</string>
+  <string name="error_general">Something went wrong</string>
+  <string name="close">Close</string>
+  <string name="open">Open</string>
+  <string name="history">History</string>
+  <string name="favourite">Favourite</string>
+  <string name="options_menu">Options Menu</string>
+  <string name="more_menu">More menu</string>
 </resources>
