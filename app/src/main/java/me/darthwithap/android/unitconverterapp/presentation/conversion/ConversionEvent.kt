@@ -23,6 +23,7 @@ sealed class ConversionEvent {
       val unit: SingleUnit,
       val isBatchConversion: Boolean = false
   ) : ConversionEvent()
+  object SwapUnits : ConversionEvent()
   
   data class ChosenBatchConversionFromUnit(val unit: SingleUnit) : ConversionEvent()
   data class ChosenToUnit(val unit: SingleUnit) : ConversionEvent()

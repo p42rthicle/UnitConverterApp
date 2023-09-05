@@ -30,8 +30,8 @@ class AddConversionUnitsUseCase(
             ?.copy(timestamp = System.currentTimeMillis())
             ?: ConversionUnits(fromUnit = fromUnit, toUnit = toUnit, collection = fromUnit.collectionName)
         
-        val generatedId = repository.updateConversionUnits(unitsToUpdate)
-        ConversionResult.Success(generatedId)
+        val rowsUpdated = repository.updateConversionUnits(unitsToUpdate)
+        ConversionResult.Success(rowsUpdated)
       }
     } catch (e: ConversionException) {
       e.printStackTrace()

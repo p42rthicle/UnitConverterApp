@@ -1,6 +1,5 @@
 package me.darthwithap.android.unitconverterapp.domain.usecases
 
-import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import me.darthwithap.android.unitconverterapp.domain.models.Collection

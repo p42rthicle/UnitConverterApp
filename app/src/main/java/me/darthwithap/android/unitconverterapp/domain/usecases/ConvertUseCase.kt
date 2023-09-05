@@ -64,8 +64,8 @@ class ConvertUseCase(
       fromUnit: SingleUnit,
       toUnit: SingleUnit
   ): String {
-    val standardValue = (inputValue - fromUnit.offset) / fromUnit.multiplier
-    val outputValue = (standardValue * toUnit.multiplier) + toUnit.offset
+    val standardValue = inputValue / fromUnit.multiplier + fromUnit.offset
+    val outputValue = (standardValue - toUnit.offset) * toUnit.multiplier
     return customRound(outputValue)
   }
 }

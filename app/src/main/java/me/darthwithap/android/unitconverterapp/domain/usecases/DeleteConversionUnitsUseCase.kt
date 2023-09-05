@@ -6,7 +6,7 @@ import me.darthwithap.android.unitconverterapp.util.ConversionException
 import me.darthwithap.android.unitconverterapp.util.ConversionResult
 
 class DeleteConversionUnitsUseCase(
-  private val repository: ConverterRepository
+    private val repository: ConverterRepository
 ) {
   suspend operator fun invoke(units: ConversionUnits): ConversionResult<String> {
     return try {

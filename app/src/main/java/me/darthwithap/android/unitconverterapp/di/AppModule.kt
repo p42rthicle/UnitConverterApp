@@ -24,34 +24,34 @@ object AppModule {
   fun provideSharedPreferences(app: Application): SharedPreferences {
     return app.getSharedPreferences("shared_prefs", MODE_PRIVATE)
   }
-
+  
   @Provides
   @Singleton
   fun providePreferences(sharedPreferences: SharedPreferences): Preferences {
     return DefaultPreferences(sharedPreferences)
   }
-
+  
   @Provides
   @Singleton
   fun provideDbReader(app: Application): DbFileReader {
     return DbFileReader(app.applicationContext)
   }
-
+  
   @Provides
   @Singleton
   fun provideConversionDatabase(app: Application): ConversionDatabase {
     return Room.databaseBuilder(
-      app.applicationContext,
-      ConversionDatabase::class.java,
-      "conversion_db"
+        app.applicationContext,
+        ConversionDatabase::class.java,
+        "conversion_db"
     ).build()
   }
-
+  
   @Provides
   @Singleton
   fun provideConverterRepository(
-    dbFileReader: DbFileReader,
-    db: ConversionDatabase
+      dbFileReader: DbFileReader,
+      db: ConversionDatabase
   ): ConverterRepository {
     return ConverterRepositoryImpl(dbFileReader, db)
   }

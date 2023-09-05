@@ -8,11 +8,11 @@ import me.darthwithap.android.unitconverterapp.util.ConversionException
 import me.darthwithap.android.unitconverterapp.util.ConversionResult
 
 class FavouriteConversionsUseCase(
-  private val repository: ConverterRepository
+    private val repository: ConverterRepository
 ) {
   suspend operator fun invoke(): Flow<ConversionResult<List<Conversion>>> {
     return flow {
-
+      
       try {
         repository.getFavouriteConversions().collect {
           emit(ConversionResult.Success(it))

@@ -10,8 +10,13 @@
   <string name="favourite">Favourite</string>
   <string name="options_menu">Options Menu</string>
   <string name="more_menu">More menu</string>
-  <string name="swap_languages">Swap Languages</string>
+  <string name="swap_units">Swap Units</string>
+  <string name="swap">Swap</string>
   <string name="recent_conversions">Recent Conversions</string>
   <string name="recent_conversion_units">Recent Conversion Units</string>
   <string name="toggle_favourite">Toggle Favourite</string>
+  <string name="favourite_conversions">Favourite Conversions</string>
+  <string name="favourite_conversion_units">Favourite Conversion Units</string>
+  <string name="copy_conversion">Copy</string>
+  <string name="copied_to_clipboard">Copied to clipboard</string>
 </resources>

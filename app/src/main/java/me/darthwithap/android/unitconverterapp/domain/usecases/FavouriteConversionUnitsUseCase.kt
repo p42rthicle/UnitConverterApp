@@ -8,12 +8,12 @@ import me.darthwithap.android.unitconverterapp.util.ConversionException
 import me.darthwithap.android.unitconverterapp.util.ConversionResult
 
 class FavouriteConversionUnitsUseCase(
-  private val repository: ConverterRepository
+    private val repository: ConverterRepository
 ) {
   suspend operator fun invoke(): Flow<ConversionResult<List<ConversionUnits>>> {
     return flow {
       try {
-        repository.getRecentConversionUnits().collect {
+        repository.getFavouriteConversionUnits().collect {
           emit(ConversionResult.Success(it))
         }
       } catch (e: ConversionException) {

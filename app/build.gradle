@@ -9,7 +9,7 @@ plugins {
 android {
   namespace 'me.darthwithap.android.unitconverterapp'
   compileSdk 33
-
+  
   defaultConfig {
     applicationId "me.darthwithap.android.unitconverterapp"
     minSdk 24
@@ -22,7 +22,7 @@ android {
       useSupportLibrary true
     }
   }
-
+  
   buildTypes {
     release {
       minifyEnabled false
@@ -50,7 +50,7 @@ android {
 }
 
 dependencies {
-
+  
   implementation 'androidx.core:core-ktx:1.8.0'
   implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
   implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
@@ -69,12 +69,12 @@ dependencies {
   androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
   debugImplementation 'androidx.compose.ui:ui-tooling'
   debugImplementation 'androidx.compose.ui:ui-test-manifest'
-
+  
   // Room
   implementation "androidx.room:room-runtime:2.5.2"
   ksp "androidx.room:room-compiler:2.5.2"
   implementation "androidx.room:room-ktx:2.5.2"
-
+  
   // Hilt
   implementation "com.google.dagger:hilt-android:2.45"
   kapt "com.google.dagger:hilt-android-compiler:2.45"

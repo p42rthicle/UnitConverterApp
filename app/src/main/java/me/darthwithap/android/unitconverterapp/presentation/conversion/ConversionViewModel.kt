@@ -13,6 +13,7 @@ import me.darthwithap.android.unitconverterapp.domain.models.SingleUnit
 import me.darthwithap.android.unitconverterapp.domain.preferences.Preferences
 import me.darthwithap.android.unitconverterapp.domain.usecases.ConversionUseCases
 import me.darthwithap.android.unitconverterapp.presentation.conversion.components.UiCollection
+import me.darthwithap.android.unitconverterapp.util.ConversionError
 import me.darthwithap.android.unitconverterapp.util.ConversionResult
 import javax.inject.Inject
 
@@ -26,6 +27,8 @@ class ConversionViewModel @Inject constructor(
   
   private var allUnits: List<SingleUnit> = emptyList()
   private var convertJob: Job? = null
+  
+  private val TAG = "ConverterAppLogs"
   
   init {
     loadCollections()
@@ -223,6 +226,16 @@ class ConversionViewModel @Inject constructor(
       is ConversionEvent.PerformBatchConversion -> {
         convert(true)
       }
+      
+      ConversionEvent.SwapUnits -> {
+        val fromUnit = state.toUnit
+        val toUnit = state.fromUnit
+        state = state.copy(
+            fromUnit = fromUnit,
+            toUnit = toUnit,
+        )
+        convert(isBatchConversion = false)
+      }
     }
   }
   
@@ -242,14 +255,29 @@ class ConversionViewModel @Inject constructor(
   }
   
   private fun loadConversions() {
+    loadRecentConversions()
+    loadFavouriteConversions()
+  }
+  
+  private fun loadConversionUnits() {
+    loadRecentConversionUnits()
+    loadFavouriteConversionUnits()
+  }
+  
+  private fun loadRecentConversions() {
     viewModelScope.launch {
       handleUseCaseResult(conversions.getRecentConversions(), onError = {}) {
-        
         state = state.copy(
             recentConversions = it
         )
       }
-      handleUseCaseResult(conversions.getFavouriteConversions(), onError = {}) {
+    }
+  }
+  
+  private fun loadFavouriteConversions() {
+    viewModelScope.launch {
+      handleUseCaseResult(conversions.getFavouriteConversions(), onError = {
+      }) {
         state = state.copy(
             favouriteConversions = it
         )
@@ -257,13 +285,18 @@ class ConversionViewModel @Inject constructor(
     }
   }
   
-  private fun loadConversionUnits() {
+  private fun loadRecentConversionUnits() {
     viewModelScope.launch {
       handleUseCaseResult(conversions.getRecentConversionUnits(), onError = {}) {
         state = state.copy(
             recentConversionUnits = it
         )
       }
+    }
+  }
+  
+  private fun loadFavouriteConversionUnits() {
+    viewModelScope.launch {
       handleUseCaseResult(conversions.getFavouriteConversionUnits(), onError = {}) {
         state = state.copy(
             favouriteConversionUnits = it
@@ -290,13 +323,12 @@ class ConversionViewModel @Inject constructor(
         ), onError = {
           state = state.copy(isConverting = false)
         }
-        ) {
-          // Not consuming the generatedId from room to see if we have to retry caching
+        ) { // ON SUCCESS OF CONVERT USE CASE
           state = state.copy(
               isConverting = false,
               outputValue = it.outputValue
           )
-          // Add simple conversions to Database
+          // Add simple conversions to db
           addConversionUnits(fromUnit, toUnit)
         }
       } else {
@@ -330,7 +362,7 @@ class ConversionViewModel @Inject constructor(
   
   private suspend fun <T> handleUseCaseResult(
       useCaseFlow: Flow<ConversionResult<T>>,
-      onError: () -> Unit,
+      onError: (ConversionError?) -> Unit,
       onSuccess: suspend (T) -> Unit
   ) {
     useCaseFlow.collect { result ->
@@ -341,7 +373,7 @@ class ConversionViewModel @Inject constructor(
         }
         
         is ConversionResult.Error -> {
-          onError()
+          onError(result.error?.error)
           state = state.copy(error = result.error?.error)
         }
       }

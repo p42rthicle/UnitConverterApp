@@ -2,6 +2,7 @@ package me.darthwithap.android.unitconverterapp.presentation.conversion.componen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -30,7 +31,7 @@ import me.darthwithap.android.unitconverterapp.R
 import me.darthwithap.android.unitconverterapp.domain.models.Conversion
 
 @Composable
-fun ConversionHistoryItem(
+fun ConversionItem(
     modifier: Modifier = Modifier,
     conversion: Conversion,
     onFavouriteClick: (Conversion) -> Unit,
@@ -47,6 +48,7 @@ fun ConversionHistoryItem(
     val fromText = "${conversion.inputValue} ${conversion.fromUnit.name.capitalize(Locale.current)} ="
     val toText = "${conversion.outputValue} ${conversion.toUnit.name.capitalize(Locale.current)}"
     Row(
+        modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically) {
       Column(horizontalAlignment = Alignment.Start) {
@@ -65,8 +67,12 @@ fun ConversionHistoryItem(
         )
       }
       Icon(modifier = Modifier
-          .padding(4.dp)
-          .clickable { onFavouriteClick(conversion) },
+          .padding(horizontal = 16.dp, vertical = 4.dp)
+          .clickable(
+              interactionSource = MutableInteractionSource(),
+              indication = null,
+              onClick = { onFavouriteClick(conversion) }
+          ),
           imageVector = if (conversion.isFavourite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
           contentDescription = stringResource(id = R.string.toggle_favourite)
       )

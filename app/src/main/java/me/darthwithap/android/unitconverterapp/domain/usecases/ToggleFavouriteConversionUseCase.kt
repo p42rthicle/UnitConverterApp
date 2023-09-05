@@ -1,6 +1,5 @@
 package me.darthwithap.android.unitconverterapp.domain.usecases
 
-import android.util.Log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.darthwithap.android.unitconverterapp.domain.models.Conversion

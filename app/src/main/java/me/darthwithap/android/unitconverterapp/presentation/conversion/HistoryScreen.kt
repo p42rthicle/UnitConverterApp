@@ -18,8 +18,8 @@ import androidx.compose.ui.unit.dp
 import me.darthwithap.android.unitconverterapp.R
 import me.darthwithap.android.unitconverterapp.domain.models.Conversion
 import me.darthwithap.android.unitconverterapp.domain.models.ConversionUnits
-import me.darthwithap.android.unitconverterapp.presentation.conversion.components.ConversionHistoryItem
-import me.darthwithap.android.unitconverterapp.presentation.conversion.components.ConversionUnitsHistoryItem
+import me.darthwithap.android.unitconverterapp.presentation.conversion.components.ConversionItem
+import me.darthwithap.android.unitconverterapp.presentation.conversion.components.ConversionUnitsItem
 
 @Composable
 fun HistoryScreen(
@@ -39,6 +39,7 @@ fun HistoryScreen(
     LazyColumn {
       item {
         Text(
+            modifier = Modifier.padding(vertical = 8.dp),
             text = stringResource(id = R.string.recent_conversions),
             style = MaterialTheme.typography.headlineSmall.copy(
                 fontWeight = FontWeight.SemiBold,
@@ -47,7 +48,7 @@ fun HistoryScreen(
         )
       }
       items(state.recentConversions) { conversion ->
-        ConversionHistoryItem(
+        ConversionItem(
             conversion = conversion,
             onFavouriteClick = onConversionFavouriteClick,
             onClick = onConversionClick
@@ -65,7 +66,7 @@ fun HistoryScreen(
         )
       }
       items(state.recentConversionUnits) { units ->
-        ConversionUnitsHistoryItem(
+        ConversionUnitsItem(
             units = units,
             onFavouriteClick = onConversionUnitsFavouriteClick,
             onClick = onConversionUnitsClick,

@@ -60,7 +60,23 @@ class MainActivity : ComponentActivity() {
               )
             }
             composable(Routes.FavouriteScreen) {
-              FavouriteScreen()
+              FavouriteScreen(
+                  state = state,
+                  onConversionClick = {
+                    viewModel.onEvent(ConversionEvent.ChosenConversion(it))
+                    navController.popBackStack()
+                  },
+                  onConversionFavouriteClick = {
+                    viewModel.onEvent(ConversionEvent.ToggleFavouriteConversion(it))
+                  },
+                  onConversionUnitsClick = {
+                    viewModel.onEvent(ConversionEvent.ChosenConversionUnits(it))
+                    navController.popBackStack()
+                  },
+                  onConversionUnitsFavouriteClick = {
+                    viewModel.onEvent(ConversionEvent.ToggleFavouriteConversionUnits(it))
+                  }
+              )
             }
           }
         }
