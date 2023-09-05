@@ -10,4 +10,8 @@
   <string name="favourite">Favourite</string>
   <string name="options_menu">Options Menu</string>
   <string name="more_menu">More menu</string>
+  <string name="swap_languages">Swap Languages</string>
+  <string name="recent_conversions">Recent Conversions</string>
+  <string name="recent_conversion_units">Recent Conversion Units</string>
+  <string name="toggle_favourite">Toggle Favourite</string>
 </resources>

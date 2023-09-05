@@ -8,17 +8,17 @@ import me.darthwithap.android.unitconverterapp.util.ConversionException
 import me.darthwithap.android.unitconverterapp.util.ConversionResult
 
 class ToggleFavouriteConversionUnitsUseCase(
-  private val repository: ConverterRepository
+    private val repository: ConverterRepository
 ) {
   suspend operator fun invoke(
-    units: ConversionUnits
+      units: ConversionUnits
   ): ConversionResult<Long> {
     return try {
       withContext(Dispatchers.IO) {
-        val generatedId = repository.updateConversionUnits(
-          units.copy(isFavourite = !units.isFavourite)
+        val numberOfRowsUpdated = repository.updateConversionUnits(
+            units.copy(isFavourite = !units.isFavourite)
         )
-        ConversionResult.Success(generatedId)
+        ConversionResult.Success(numberOfRowsUpdated)
       }
     } catch (e: ConversionException) {
       e.printStackTrace()

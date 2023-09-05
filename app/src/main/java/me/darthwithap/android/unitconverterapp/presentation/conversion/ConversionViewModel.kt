@@ -60,7 +60,7 @@ class ConversionViewModel @Inject constructor(
             toUnit = event.collection.units.last(),
             isChoosingCollection = false
         )
-        convert()
+        convert(isBatchConversion = state.isBatchConversion)
       }
       
       is ConversionEvent.ChosenConversion -> {
@@ -83,6 +83,7 @@ class ConversionViewModel @Inject constructor(
               it.collection.name == event.units.collection
             }
         )
+        convert(false)
       }
       
       is ConversionEvent.ChosenFromUnit -> {
@@ -90,7 +91,7 @@ class ConversionViewModel @Inject constructor(
             fromUnit = event.unit,
             isChoosingFromUnit = false
         )
-        convert()
+        convert(event.isBatchConversion)
       }
       
       is ConversionEvent.ChosenToUnit -> {
@@ -98,11 +99,11 @@ class ConversionViewModel @Inject constructor(
             toUnit = event.unit,
             isChoosingToUnit = false
         )
-        convert()
+        convert(isBatchConversion = state.isBatchConversion)
       }
       
       is ConversionEvent.Convert -> {
-        convert()
+        convert(isBatchConversion = state.isBatchConversion, saveToHistory = event.saveToHistory)
       }
       
       is ConversionEvent.InputValueChanged -> {
@@ -113,7 +114,7 @@ class ConversionViewModel @Inject constructor(
           onEvent(ConversionEvent.ResetConversion)
           return
         }
-        convert()
+        convert(event.isBatchConversion)
       }
       
       ConversionEvent.StoppedChoosingCollection -> {
@@ -199,7 +200,8 @@ class ConversionViewModel @Inject constructor(
       ConversionEvent.ResetConversion -> {
         state = state.copy(
             inputValue = "",
-            outputValue = null
+            outputValue = null,
+            batchConversionResult = emptyMap()
         )
       }
       
@@ -207,6 +209,19 @@ class ConversionViewModel @Inject constructor(
         state = state.copy(
             isBatchConversion = !state.isBatchConversion
         )
+        convert(isBatchConversion = state.isBatchConversion)
+      }
+      
+      is ConversionEvent.ChosenBatchConversionFromUnit -> {
+        state = state.copy(
+            fromUnit = event.unit,
+            isChoosingFromUnit = false
+        )
+        convert(isBatchConversion = state.isBatchConversion)
+      }
+      
+      is ConversionEvent.PerformBatchConversion -> {
+        convert(true)
       }
     }
   }
@@ -229,6 +244,7 @@ class ConversionViewModel @Inject constructor(
   private fun loadConversions() {
     viewModelScope.launch {
       handleUseCaseResult(conversions.getRecentConversions(), onError = {}) {
+        
         state = state.copy(
             recentConversions = it
         )
@@ -256,7 +272,7 @@ class ConversionViewModel @Inject constructor(
     }
   }
   
-  private fun convert() {
+  private fun convert(isBatchConversion: Boolean = false, saveToHistory: Boolean = false) {
     if (state.isConverting || state.inputValue.isBlank()) {
       return
     }
@@ -265,20 +281,37 @@ class ConversionViewModel @Inject constructor(
     val toUnit = state.toUnit ?: allUnits.first()
     convertJob = viewModelScope.launch {
       state = state.copy(isConverting = true)
-      handleUseCaseResult(conversions.convert(
-          state.inputValue,
-          fromUnit,
-          toUnit
-      ), onError = {
-        state = state.copy(isConverting = false)
-      }
-      ) {
-        // Not consuming the generatedId from room to see if we have to retry caching
-        state = state.copy(
-            isConverting = false,
-            outputValue = it.outputValue
-        )
-        addConversionUnits(fromUnit, toUnit)
+      if (!isBatchConversion) {
+        handleUseCaseResult(conversions.convert(
+            state.inputValue,
+            fromUnit,
+            toUnit,
+            saveToHistory
+        ), onError = {
+          state = state.copy(isConverting = false)
+        }
+        ) {
+          // Not consuming the generatedId from room to see if we have to retry caching
+          state = state.copy(
+              isConverting = false,
+              outputValue = it.outputValue
+          )
+          // Add simple conversions to Database
+          addConversionUnits(fromUnit, toUnit)
+        }
+      } else {
+        handleUseCaseResult(conversions.batchConvert(
+            state.inputValue,
+            fromUnit,
+            state.currentCollection?.collection?.units
+        ), onError = {
+          state = state.copy(isConverting = false)
+        }) {
+          state = state.copy(
+              isConverting = false,
+              batchConversionResult = it
+          )
+        }
       }
     }
   }

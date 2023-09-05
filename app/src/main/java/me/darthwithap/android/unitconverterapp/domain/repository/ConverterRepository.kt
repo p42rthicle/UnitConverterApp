@@ -12,6 +12,7 @@ interface ConverterRepository {
   suspend fun deleteConversion(conversion: Conversion)
   suspend fun updateConversionUnits(units: ConversionUnits): Long
   fun getRecentConversionUnits(): Flow<List<ConversionUnits>>
+  fun getRecentConversionUnitsByUnits(fromUnit: String, toUnit: String): Flow<ConversionUnits?>
   fun getFavouriteConversionUnits(): Flow<List<ConversionUnits>>
   suspend fun deleteConversionUnits(units: ConversionUnits)
   suspend fun getCollections(): Flow<List<Collection>>

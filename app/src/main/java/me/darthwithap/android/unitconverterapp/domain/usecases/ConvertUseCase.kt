@@ -21,7 +21,8 @@ class ConvertUseCase(
   suspend operator fun invoke(
       input: String,
       fromUnit: SingleUnit,
-      toUnit: SingleUnit
+      toUnit: SingleUnit,
+      saveToHistory: Boolean = false
   ): Flow<ConversionResult<ConversionOutput>> {
     
     return flow {
@@ -41,18 +42,19 @@ class ConvertUseCase(
       val outputValue = performConversion(inputValue, fromUnit, toUnit)
       emit(ConversionResult.Success(ConversionOutput(outputValue)))
       
-      try {
-        val generatedId = repository.updateConversion(
-            // id field set to 0L to let Room auto-generate it
-            //TODO: Don't have to toDouble() here instead make Conversion have Strings instead
-            Conversion(
-                0L, fromUnit, toUnit, inputValue, outputValue.toDouble(), fromUnit.collectionName
-            )
-        )
-        //TODO: when checking if saved then make ability to favourite available
-        //emit(ConversionResult.Success(ConversionOutput(outputValue, generatedId)))
-      } catch (e: ConversionException) {
-        emit(ConversionResult.Error(e))
+      // Save to db when onDone action from keyboard
+      if (saveToHistory) {
+        try {
+          val generatedId = repository.updateConversion(
+              // id field set to 0L to let Room auto-generate it
+              //TODO: Don't have to toDouble() here instead make Conversion have Strings instead
+              Conversion(0L, fromUnit, toUnit, inputValue, outputValue.toDouble(), fromUnit.collectionName)
+          )
+          //TODO: when checking if saved then make ability to favourite available
+          //emit(ConversionResult.Success(ConversionOutput(outputValue, generatedId)))
+        } catch (e: ConversionException) {
+          emit(ConversionResult.Error(e))
+        }
       }
     }.flowOn(Dispatchers.IO)
   }

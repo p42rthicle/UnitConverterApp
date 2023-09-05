@@ -7,6 +7,7 @@ import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
 import me.darthwithap.android.unitconverterapp.domain.repository.ConverterRepository
 import me.darthwithap.android.unitconverterapp.domain.usecases.AddConversionUnitsUseCase
+import me.darthwithap.android.unitconverterapp.domain.usecases.BatchConvertUseCase
 import me.darthwithap.android.unitconverterapp.domain.usecases.CollectionsUseCase
 import me.darthwithap.android.unitconverterapp.domain.usecases.ConversionUseCases
 import me.darthwithap.android.unitconverterapp.domain.usecases.ConvertUseCase
@@ -29,6 +30,7 @@ object DomainModule {
   ): ConversionUseCases {
     return ConversionUseCases(
         convert = ConvertUseCase(repository),
+        batchConvert = BatchConvertUseCase(),
         getRecentConversions = RecentConversionsUseCase(repository),
         getFavouriteConversions = FavouriteConversionsUseCase(repository),
         toggleFavouriteConversion = ToggleFavouriteConversionUseCase(repository),

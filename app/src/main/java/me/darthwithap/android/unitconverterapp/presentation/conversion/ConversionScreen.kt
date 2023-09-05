@@ -1,10 +1,7 @@
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -15,17 +12,20 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import me.darthwithap.android.unitconverterapp.R
+import me.darthwithap.android.unitconverterapp.presentation.conversion.BatchConversionScreen
 import me.darthwithap.android.unitconverterapp.presentation.conversion.ConversionEvent
 import me.darthwithap.android.unitconverterapp.presentation.conversion.ConversionState
+import me.darthwithap.android.unitconverterapp.presentation.conversion.SimpleConversionScreenState
 import me.darthwithap.android.unitconverterapp.presentation.conversion.components.HeaderBar
-import me.darthwithap.android.unitconverterapp.presentation.conversion.components.UnitDisplaySelector
 import me.darthwithap.android.unitconverterapp.util.ConversionError
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversionScreen(
     state: ConversionState,
-    onEvent: (ConversionEvent) -> Unit
+    onEvent: (ConversionEvent) -> Unit,
+    onHistoryIconClick: () -> Unit,
+    onFavouriteIconClick: () -> Unit,
 ) {
   val context = LocalContext.current
   
@@ -49,6 +49,10 @@ fun ConversionScreen(
           collections = state.collections,
           currentCollection = it,
           isCollectionDropDownOpen = state.isChoosingCollection,
+          isBatchConversion = state.isBatchConversion,
+          onBatchIconClick = { onEvent(ConversionEvent.ToggleBatchConversion) },
+          onHistoryIconClick = onHistoryIconClick,
+          onFavouriteIconClick = onFavouriteIconClick,
           onCollectionClick = { onEvent(ConversionEvent.ChoosingCollection) },
           onDropDownDismiss = { onEvent(ConversionEvent.StoppedChoosingCollection) },
       ) { chosenCollection ->
@@ -61,7 +65,11 @@ fun ConversionScreen(
         .background(MaterialTheme.colorScheme.surface)
         .padding(paddingValues)
         .padding(16.dp)) {
-      
+      if (state.isBatchConversion) {
+        BatchConversionScreen(state = state, onEvent = onEvent)
+      } else {
+        SimpleConversionScreenState(state = state, onEvent = onEvent)
+      }
     }
   }
 }

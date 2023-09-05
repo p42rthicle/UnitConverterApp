@@ -20,7 +20,7 @@ data class ConversionUnitsEntity(
       toUnit: SingleUnit
   ): ConversionUnits {
     return ConversionUnits(
-        id, fromUnit, toUnit, collection
+        id, fromUnit, toUnit, collection, isFavourite, timestamp
     )
   }
 }

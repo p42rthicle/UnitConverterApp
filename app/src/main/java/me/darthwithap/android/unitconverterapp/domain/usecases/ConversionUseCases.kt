@@ -2,6 +2,7 @@ package me.darthwithap.android.unitconverterapp.domain.usecases
 
 data class ConversionUseCases(
     val convert: ConvertUseCase,
+    val batchConvert: BatchConvertUseCase,
     val getRecentConversions: RecentConversionsUseCase,
     val getFavouriteConversions: FavouriteConversionsUseCase,
     val toggleFavouriteConversion: ToggleFavouriteConversionUseCase,

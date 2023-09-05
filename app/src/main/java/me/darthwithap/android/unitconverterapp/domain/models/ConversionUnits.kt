@@ -7,11 +7,12 @@ data class ConversionUnits(
     val fromUnit: SingleUnit,
     val toUnit: SingleUnit,
     val collection: String,
-    val isFavourite: Boolean = false
+    val isFavourite: Boolean = false,
+    val timestamp: Long = System.currentTimeMillis()
 ) {
   fun toEntity(): ConversionUnitsEntity {
     return ConversionUnitsEntity(
-        id, fromUnit.name, toUnit.name, collection, isFavourite
+        id, fromUnit.name, toUnit.name, collection, isFavourite, timestamp
     )
   }
 }

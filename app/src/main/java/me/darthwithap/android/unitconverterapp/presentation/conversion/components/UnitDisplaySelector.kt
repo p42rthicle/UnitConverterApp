@@ -71,14 +71,16 @@ fun UnitDisplaySelector(
           )
   
   ) {
-    Row {
-      Column(modifier = Modifier
-          .fillMaxWidth(),
-          horizontalAlignment = Alignment.CenterHorizontally,
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+      Column(
+          modifier = Modifier.fillMaxWidth(if (hasMoreMenu) 0.85f else 1f),
+          horizontalAlignment = Alignment.Start,
           verticalArrangement = Arrangement.SpaceEvenly) {
         if (isDropDown) {
           UnitDropDown(
-              modifier = Modifier.padding(horizontal = 10.dp),
+              modifier = Modifier.padding(horizontal = 8.dp),
               units = uiCollection?.collection?.units ?: emptyList(),
               singleUnit = singleUnit,
               tintColor = uiCollection?.tintColor ?: MaterialTheme.colorScheme.primary,
@@ -89,6 +91,7 @@ fun UnitDisplaySelector(
           )
         } else {
           Text(
+              modifier = Modifier.padding(horizontal = 8.dp),
               text = singleUnit.name.capitalize(Locale.current),
               style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.SemiBold)
           )
@@ -106,7 +109,11 @@ fun UnitDisplaySelector(
           if (!isEditable) {
             Text(
                 text = value,
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold),
+                style = if (!hasMoreMenu)
+                  MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.SemiBold)
+                else MaterialTheme.typography.headlineSmall.copy(
+                    fontWeight = FontWeight.SemiBold,
+                    color = MaterialTheme.colorScheme.onBackground),
                 color = MaterialTheme.colorScheme.onSurface
             )
           } else {
@@ -138,10 +145,11 @@ fun UnitDisplaySelector(
         }
       }
       if (hasMoreMenu) {
-        IconButton(onClick = { /*TODO*/ }) {
+        IconButton(onClick = { }) {
           Icon(
               painter = painterResource(id = R.drawable.ic_dots_horizontal),
-              contentDescription = stringResource(id = R.string.more_menu)
+              contentDescription = stringResource(id = R.string.more_menu),
+              tint = MaterialTheme.colorScheme.onSurface
           )
         }
       }

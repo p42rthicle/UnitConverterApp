@@ -98,6 +98,22 @@ class ConverterRepositoryImpl(
     }
   }
   
+  override fun getRecentConversionUnitsByUnits(
+      fromUnit: String,
+      toUnit: String
+  ): Flow<ConversionUnits?> {
+    return dao.getRecentConversionUnitsByUnits(fromUnit, toUnit).map { unitEntity ->
+      unitEntity?.let {
+        val fromSingleUnit = dao.getSingleUnitByName(it.fromUnit).first().toDomainModel()
+        val toSingleUnit = dao.getSingleUnitByName(it.toUnit).first().toDomainModel()
+        it.toDomainModel(fromSingleUnit, toSingleUnit)
+      }
+    }.catch { e ->
+      e.printStackTrace()
+      throw ConversionException(ConversionError.DB_ERROR)
+    }
+  }
+  
   override fun getFavouriteConversionUnits(): Flow<List<ConversionUnits>> {
     return dao.getFavouriteConversionUnits().map { unitsEntities ->
       unitsEntities.map {

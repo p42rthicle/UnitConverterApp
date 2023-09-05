@@ -16,8 +16,8 @@ interface ConversionDao {
   @Upsert
   suspend fun updateConversion(conversion: ConversionEntity): Long
   
-  @Query("SELECT * FROM ConversionEntity WHERE isFavourite = 0 ORDER BY timestamp DESC")
-  fun getRecentConversions(): Flow<List<ConversionEntity>>
+  @Query("SELECT * FROM ConversionEntity ORDER BY timestamp DESC LIMIT :limit")
+  fun getRecentConversions(limit: Int = 10): Flow<List<ConversionEntity>>
   
   @Query("SELECT * FROM ConversionEntity WHERE isFavourite = 1 ORDER BY timestamp DESC")
   fun getFavouriteConversions(): Flow<List<ConversionEntity>>
@@ -28,8 +28,11 @@ interface ConversionDao {
   @Upsert
   suspend fun updateConversionUnits(units: ConversionUnitsEntity): Long
   
-  @Query("SELECT * FROM ConversionUnitsEntity WHERE isFavourite = 0 ORDER BY timestamp DESC")
-  fun getRecentConversionUnits(): Flow<List<ConversionUnitsEntity>>
+  @Query("SELECT * FROM ConversionUnitsEntity ORDER BY timestamp DESC LIMIT :limit")
+  fun getRecentConversionUnits(limit: Int = 10): Flow<List<ConversionUnitsEntity>>
+  
+  @Query("SELECT * FROM ConversionUnitsEntity WHERE fromUnit = :fromUnit AND toUnit = :toUnit ORDER BY timestamp DESC LIMIT 1")
+  fun getRecentConversionUnitsByUnits(fromUnit: String, toUnit: String): Flow<ConversionUnitsEntity?>
   
   @Query("SELECT * FROM ConversionUnitsEntity WHERE isFavourite = 1 ORDER BY timestamp DESC")
   fun getFavouriteConversionUnits(): Flow<List<ConversionUnitsEntity>>

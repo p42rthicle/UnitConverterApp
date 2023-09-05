@@ -1,6 +1,5 @@
 package me.darthwithap.android.unitconverterapp.presentation.conversion.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -27,6 +26,10 @@ fun HeaderBar(
     currentCollection: UiCollection,
     collections: List<UiCollection> = emptyList(),
     isCollectionDropDownOpen: Boolean = false,
+    isBatchConversion: Boolean = false,
+    onBatchIconClick: () -> Unit,
+    onHistoryIconClick: () -> Unit,
+    onFavouriteIconClick: () -> Unit,
     onCollectionClick: () -> Unit,
     onDropDownDismiss: () -> Unit,
     onCollectionSelected: (Collection) -> Unit
@@ -48,7 +51,7 @@ fun HeaderBar(
     )
     Spacer(modifier = Modifier.weight(1f))
     Row(horizontalArrangement = Arrangement.SpaceBetween) {
-      IconButton(onClick = {}) {
+      IconButton(onClick = onHistoryIconClick) {
         Icon(
             modifier = Modifier
                 .size(48.dp)
@@ -57,19 +60,21 @@ fun HeaderBar(
             contentDescription = stringResource(id = R.string.history)
         )
       }
-      IconButton(onClick = {}) {
+      IconButton(onClick = onBatchIconClick) {
         Icon(
             modifier = Modifier
-                .clickable { }
                 .size(48.dp)
                 .padding(horizontal = 8.dp),
-            painter = painterResource(id = R.drawable.ic_batch_conversion),
+            painter = painterResource(
+                id = if (isBatchConversion)
+                  R.drawable.ic_simple_conversion
+                else R.drawable.ic_batch_conversion
+            ),
             contentDescription = stringResource(id = R.string.history))
       }
-      IconButton(onClick = {}) {
+      IconButton(onClick = onFavouriteIconClick) {
         Icon(
             modifier = Modifier
-                .clickable { }
                 .size(48.dp)
                 .padding(horizontal = 8.dp),
             imageVector = Icons.Default.Favorite,
@@ -78,7 +83,6 @@ fun HeaderBar(
       IconButton(onClick = {}) {
         Icon(
             modifier = Modifier
-                .clickable { }
                 .size(48.dp)
                 .padding(start = 8.dp, end = 12.dp),
             imageVector = Icons.Default.MoreVert,

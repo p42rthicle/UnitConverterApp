@@ -16,11 +16,13 @@ data class ConversionState(
     val isChoosingToUnit: Boolean = false,
     val isChoosingCollection: Boolean = false,
     val isBatchConversion: Boolean = false,
+    val isShowingHistory: Boolean = false,
     val currentCollection: UiCollection? = null,
     val collections: List<UiCollection> = emptyList(),
     val recentConversions: List<Conversion> = emptyList(),
     val favouriteConversions: List<Conversion> = emptyList(),
     val recentConversionUnits: List<ConversionUnits> = emptyList(),
     val favouriteConversionUnits: List<ConversionUnits> = emptyList(),
+    val batchConversionResult: Map<SingleUnit, String> = emptyMap(),
     val error: ConversionError? = null
 )

@@ -24,10 +24,7 @@ fun SimpleConversionScreenState(
         hasMoreMenu = false,
         onInputValueChanged = { onEvent(ConversionEvent.InputValueChanged(it)) },
         onConvert = {
-          onEvent(ConversionEvent.Convert(state.inputValue, state.fromUnit, state.toUnit
-              ?: state.currentCollection?.collection?.units?.last()
-              ?: return@UnitDisplaySelector
-          ))
+          onEvent(ConversionEvent.Convert(true))
         },
         isDropDownOpen = state.isChoosingFromUnit,
         onUnitDropDownClick = { onEvent(ConversionEvent.ChoosingFromUnit) },
