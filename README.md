@@ -6,7 +6,6 @@ Easily convert between a myriad of measurement units without the need for intern
 - [Example](#example)
 - [Features](#features)
 - [Usage](#usage)
-- [Tech Stack](#example)
 - [Tech Stack](#techstack)
 
 ## Example
