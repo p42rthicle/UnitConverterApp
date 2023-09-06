@@ -7,7 +7,7 @@ Easily convert between a myriad of measurement units without the need for intern
 - [Features](#features)
 - [Usage](#usage)
 - [Tech Stack](#example)
-- [Tech Stack](#example)
+- [Tech Stack](#techstack)
 
 ## Example
 ![Screen Recording](https://github.com/patthhar/Multi_Lingo_Kmm/assets/128719760/55f04537-540e-4af3-b35a-08c2c54571f3)
