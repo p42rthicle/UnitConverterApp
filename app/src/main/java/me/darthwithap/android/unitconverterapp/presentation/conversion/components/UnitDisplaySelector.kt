@@ -1,6 +1,7 @@
 package me.darthwithap.android.unitconverterapp.presentation.conversion.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,10 +20,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -34,6 +42,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.intl.Locale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
 import me.darthwithap.android.unitconverterapp.R
 import me.darthwithap.android.unitconverterapp.domain.models.SingleUnit
 
@@ -59,6 +68,9 @@ fun UnitDisplaySelector(
   val keyboardController = LocalSoftwareKeyboardController.current
   val boxHorizontalPadding = if (hasMoreMenu) 8.dp else 16.dp
   val boxVerticalPadding = if (hasMoreMenu) 12.dp else 32.dp
+  var showContextMenu by remember { mutableStateOf(false) }
+  val clipboardManager = LocalClipboardManager.current
+  
   Box(
       modifier = modifier
           .clip(RoundedCornerShape(16.dp))
@@ -119,6 +131,14 @@ fun UnitDisplaySelector(
             )
           } else {
             BasicTextField(
+                modifier = Modifier
+                    .pointerInput(Unit) {
+                      detectTapGestures {
+                        if (clipboardManager.hasText()) {
+                          showContextMenu = true
+                        }
+                      }
+                    },
                 value = value,
                 onValueChange = onInputValueChanged,
                 maxLines = 1,
@@ -138,6 +158,27 @@ fun UnitDisplaySelector(
                 ),
                 singleLine = true,
             )
+            
+            if (showContextMenu) {
+              Popup(
+                  onDismissRequest = { showContextMenu = false }
+              ) {
+                Box(modifier = Modifier
+                    .background(Color.White)
+                    .padding(16.dp)
+                    .pointerInput(Unit) {
+                      detectTapGestures {
+                        val clip = clipboardManager.getText()
+                        if (!clip.isNullOrEmpty()) {
+                          onInputValueChanged(clip.text)
+                        }
+                        showContextMenu = false
+                      }
+                    }) {
+                  Text("Paste")
+                }
+              }
+            }
           }
           
           Spacer(modifier = Modifier.width(12.dp))

@@ -8,7 +8,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import me.darthwithap.android.unitconverterapp.presentation.conversion.components.ConversionBottomSheet
 import me.darthwithap.android.unitconverterapp.presentation.conversion.components.UnitDisplaySelector
 
 @Composable
@@ -49,15 +48,7 @@ fun BatchConversionScreen(
           isEditable = false,
           isDropDown = false,
           hasMoreMenu = true,
-          onMoreMenuClick = {
-//            ConversionBottomSheet(
-//                fromUnit = unit,
-//                toUnit = state.fromUnit ?:return@UnitDisplaySelector,
-//                inputValue = state.inputValue,
-//                outputValue = state.batchConversionResult[unit] ?: "",
-//                onFavouriteClick = {  }) {
-//            }
-          },
+          onMoreMenuClick = {},
           onInputValueChanged = {},
           onConvert = {},
           isDropDownOpen = false,
