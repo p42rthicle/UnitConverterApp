@@ -6,10 +6,10 @@ Easily convert between a myriad of measurement units without the need for intern
 - [Example](#example)
 - [Features](#features)
 - [Usage](#usage)
-- [Tech Stack](#techstack)
+- [TechStack](#techstack)
 
 ## Example
-![Screen Recording](https://github.com/patthhar/Multi_Lingo_Kmm/assets/128719760/55f04537-540e-4af3-b35a-08c2c54571f3)
+https://github.com/patthhar/UnitConverterApp/assets/128719760/896bcab1-2f89-4108-94c0-b7ff181cf41a
 
 ## APK
 [unit-converter-app-debug.apk](https://github.com/patthhar/UnitConverterApp/blob/main/apk/unit-converter-app-debug.apk)
@@ -42,7 +42,7 @@ Easily convert between a myriad of measurement units without the need for intern
 
 Simply select your desired units, input the value, and witness instant, precise conversions. Utilize the favorites and history features for enhanced efficiency.
 
-## Tech Stack
+## TechStack
 - Room
 - Coroutines
 - Flow
