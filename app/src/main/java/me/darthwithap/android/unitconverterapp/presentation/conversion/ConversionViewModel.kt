@@ -1,5 +1,6 @@
 package me.darthwithap.android.unitconverterapp.presentation.conversion
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -7,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import me.darthwithap.android.unitconverterapp.domain.models.SingleUnit
@@ -117,7 +119,9 @@ class ConversionViewModel @Inject constructor(
           onEvent(ConversionEvent.ResetConversion)
           return
         }
-        convert(event.isBatchConversion)
+        viewModelScope.launch {
+          convert(event.isBatchConversion)
+        }
       }
       
       ConversionEvent.StoppedChoosingCollection -> {
@@ -236,6 +240,30 @@ class ConversionViewModel @Inject constructor(
         )
         convert(isBatchConversion = false)
       }
+      
+      ConversionEvent.HideOptionsMenu -> {
+        state = state.copy(
+            shouldShowOptionsMenu = false
+        )
+      }
+      
+      ConversionEvent.ShowOptionsMenu -> {
+        state = state.copy(
+            shouldShowOptionsMenu = true
+        )
+      }
+      
+      ConversionEvent.HideFormulaInfoDialog -> {
+        state = state.copy(
+            showInfoDialog = false
+        )
+      }
+      
+      ConversionEvent.ShowFormulaInfoDialog -> {
+        state = state.copy(
+            showInfoDialog = true
+        )
+      }
     }
   }
   
@@ -314,36 +342,54 @@ class ConversionViewModel @Inject constructor(
     val toUnit = state.toUnit ?: allUnits.first()
     convertJob = viewModelScope.launch {
       state = state.copy(isConverting = true)
-      if (!isBatchConversion) {
-        handleUseCaseResult(conversions.convert(
-            state.inputValue,
-            fromUnit,
-            toUnit,
-            saveToHistory
-        ), onError = {
-          state = state.copy(isConverting = false)
-        }
-        ) { // ON SUCCESS OF CONVERT USE CASE
-          state = state.copy(
-              isConverting = false,
-              outputValue = it.outputValue
-          )
-          // Add simple conversions to db
-          addConversionUnits(fromUnit, toUnit)
-        }
-      } else {
-        handleUseCaseResult(conversions.batchConvert(
-            state.inputValue,
-            fromUnit,
-            state.currentCollection?.collection?.units
-        ), onError = {
-          state = state.copy(isConverting = false)
-        }) {
-          state = state.copy(
-              isConverting = false,
-              batchConversionResult = it
-          )
-        }
+      Log.d(TAG, "convert: fromUnit Collection before checking validInput: ${fromUnit.collectionName}")
+      Log.d(TAG, "convert: state.Collection Collection before checking validInput: ${state.currentCollection?.collection?.name}")
+      handleUseCaseResult(conversions.validateInput(
+          state.inputValue, fromUnit.collectionName
+      ), onError = {
+        state = state.copy(error = it)
+      }) {
+        if (it) performConversion(fromUnit, toUnit, isBatchConversion, saveToHistory)
+        else state = state.copy(isConverting = false)
+      }
+    }
+  }
+  
+  private suspend fun performConversion(
+      fromUnit: SingleUnit,
+      toUnit: SingleUnit,
+      isBatchConversion: Boolean,
+      saveToHistory: Boolean
+  ) {
+    if (!isBatchConversion) {
+      handleUseCaseResult(conversions.convert(
+          state.inputValue,
+          fromUnit,
+          toUnit,
+          saveToHistory
+      ), onError = {
+        state = state.copy(isConverting = false)
+      }
+      ) { // ON SUCCESS OF CONVERT USE CASE
+        state = state.copy(
+            isConverting = false,
+            outputValue = it.outputValue
+        )
+        // Add simple conversion units to db
+        addConversionUnits(fromUnit, toUnit)
+      }
+    } else {
+      handleUseCaseResult(conversions.batchConvert(
+          state.inputValue,
+          fromUnit,
+          state.currentCollection?.collection?.units
+      ), onError = {
+        state = state.copy(isConverting = false)
+      }) {
+        state = state.copy(
+            isConverting = false,
+            batchConversionResult = it
+        )
       }
     }
   }

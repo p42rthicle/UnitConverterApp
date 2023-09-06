@@ -1,6 +1,7 @@
 package me.darthwithap.android.unitconverterapp.presentation.conversion.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,8 +10,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -27,11 +32,15 @@ fun HeaderBar(
     collections: List<UiCollection> = emptyList(),
     isCollectionDropDownOpen: Boolean = false,
     isBatchConversion: Boolean = false,
+    showMenu: Boolean = false,
     onBatchIconClick: () -> Unit,
     onHistoryIconClick: () -> Unit,
     onFavouriteIconClick: () -> Unit,
     onCollectionClick: () -> Unit,
     onDropDownDismiss: () -> Unit,
+    onHideOptionsMenu: () -> Unit,
+    onShowOptionsMenu: () -> Unit,
+    onAboutUsClick: () -> Unit,
     onCollectionSelected: (Collection) -> Unit
 ) {
   Row(
@@ -80,14 +89,27 @@ fun HeaderBar(
             imageVector = Icons.Default.Favorite,
             contentDescription = stringResource(id = R.string.favourite))
       }
-      IconButton(onClick = {}) {
-        Icon(
-            modifier = Modifier
-                .size(48.dp)
-                .padding(start = 8.dp, end = 12.dp),
-            imageVector = Icons.Default.MoreVert,
-            contentDescription = stringResource(id = R.string.options_menu))
+      Box {
+        IconButton(onClick = onShowOptionsMenu) {
+          Icon(
+              modifier = Modifier
+                  .size(48.dp)
+                  .padding(start = 8.dp, end = 12.dp),
+              imageVector = Icons.Default.MoreVert,
+              contentDescription = stringResource(id = R.string.options_menu)
+          )
+        }
+        DropdownMenu(
+            expanded = showMenu,
+            onDismissRequest = onHideOptionsMenu,
+            modifier = Modifier.align(Alignment.TopEnd)
+        ) {
+          DropdownMenuItem(text = {
+            Text(text = stringResource(id = R.string.about_us), style = MaterialTheme.typography.bodyLarge)
+          }, onClick = onAboutUsClick)
+        }
       }
+      
     }
   }
 }

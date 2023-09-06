@@ -72,6 +72,7 @@ fun ConversionOptionsRow(
     item {
       IconButton(onClick = onInfoClick) {
         Icon(
+            modifier = Modifier.size(32.dp),
             painter = painterResource(id = R.drawable.ic_info),
             contentDescription = null
         )

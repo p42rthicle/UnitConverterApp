@@ -25,7 +25,7 @@ fun ConversionScreen(
     state: ConversionState,
     onEvent: (ConversionEvent) -> Unit,
     onHistoryIconClick: () -> Unit,
-    onFavouriteIconClick: () -> Unit,
+    onFavouriteIconClick: () -> Unit
 ) {
   val context = LocalContext.current
   
@@ -36,6 +36,10 @@ fun ConversionScreen(
       ConversionError.INVALID_INPUT_VALUE -> context.getString(R.string.error_invalid_input)
       ConversionError.DIFFERENT_COLLECTIONS -> context.getString(R.string.error_same_units)
       ConversionError.GENERAL_ERROR -> context.getString(R.string.error_general)
+      ConversionError.INVALID_CHARACTERS_FOUND -> context.getString(R.string.invalid_chracters_found)
+      ConversionError.INVALID_DECIMAL_POSITION -> context.getString(R.string.invalid_decimal_position)
+      ConversionError.ONLY_DECIMAL_INVALID -> context.getString(R.string.only_decimal_invalid)
+      ConversionError.NEGATIVE_VALUES_NOT_ALLOWED -> context.getString(R.string.negative_values_not_allowed)
     }
     message?.let {
       Toast.makeText(context, it, Toast.LENGTH_SHORT).show()
@@ -50,11 +54,18 @@ fun ConversionScreen(
           currentCollection = it,
           isCollectionDropDownOpen = state.isChoosingCollection,
           isBatchConversion = state.isBatchConversion,
+          showMenu = state.shouldShowOptionsMenu,
           onBatchIconClick = { onEvent(ConversionEvent.ToggleBatchConversion) },
           onHistoryIconClick = onHistoryIconClick,
           onFavouriteIconClick = onFavouriteIconClick,
           onCollectionClick = { onEvent(ConversionEvent.ChoosingCollection) },
           onDropDownDismiss = { onEvent(ConversionEvent.StoppedChoosingCollection) },
+          onHideOptionsMenu = { onEvent(ConversionEvent.HideOptionsMenu) },
+          onShowOptionsMenu = { onEvent(ConversionEvent.ShowOptionsMenu) },
+          onAboutUsClick = {
+            Toast.makeText(context, "About us clicked", Toast.LENGTH_SHORT).show()
+            onEvent(ConversionEvent.HideOptionsMenu)
+          }
       ) { chosenCollection ->
         onEvent(ConversionEvent.ChosenCollection(chosenCollection))
       }

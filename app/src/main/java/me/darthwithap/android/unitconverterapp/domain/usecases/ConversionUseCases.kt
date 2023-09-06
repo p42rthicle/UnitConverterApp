@@ -12,5 +12,6 @@ data class ConversionUseCases(
     val getFavouriteConversionUnits: FavouriteConversionUnitsUseCase,
     val toggleFavouriteConversionUnits: ToggleFavouriteConversionUnitsUseCase,
     val deleteConversionUnits: DeleteConversionUnitsUseCase,
-    val collections: CollectionsUseCase
+    val collections: CollectionsUseCase,
+    val validateInput: ValidateInputUseCase
 )

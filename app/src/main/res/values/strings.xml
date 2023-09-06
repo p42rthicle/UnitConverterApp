@@ -13,10 +13,28 @@
   <string name="swap_units">Swap Units</string>
   <string name="swap">Swap</string>
   <string name="recent_conversions">Recent Conversions</string>
-  <string name="recent_conversion_units">Recent Conversion Units</string>
+  <string name="no_recent_conversions">No recent conversions</string>
+  <string name="no_favourite_conversions">No favourite conversions</string>
+  <string name="no_recent_conversions_desc">Your recent conversions and conversion units from those conversions show here</string>
+  <string name="no_favourite_conversions_desc">Your favourite conversions and conversion units from favourite conversions show here</string>
   <string name="toggle_favourite">Toggle Favourite</string>
   <string name="favourite_conversions">Favourite Conversions</string>
+  <string name="last_conversions">Last Conversions</string>
   <string name="favourite_conversion_units">Favourite Conversion Units</string>
+  <string name="last_conversion_units">Last Conversion Units</string>
   <string name="copy_conversion">Copy</string>
   <string name="copied_to_clipboard">Copied to clipboard</string>
+  <string name="about_us">About us</string>
+  <string name="recent_conversion_units">Recent Conversion Units</string>
+  <string name="last_conversion">Last Conversion</string>
+  <string name="fahrenheit_to_celsius">C = (F - 32) x 5/9</string>
+  <string name="fahrenheit_to_kelvin">K = (F - 32) x 5/9 + 273.15</string>
+  <string name="celsius_to_fahrenheit">F = C x (9/5) + 32</string>
+  <string name="kelvin_to_fahrenheit">F = (K - 273.15) x 9/5 + 32</string>
+  <string name="celsius_to_kelvin">K = C + 273.15</string>
+  <string name="kelvin_to_celsius">C = K - 273.15</string>
+  <string name="invalid_chracters_found">Invalid characters found</string>
+  <string name="invalid_decimal_position">Decimal point cannot be at the end</string>
+  <string name="only_decimal_invalid">Just a decimal point isn\'t valid</string>
+  <string name="negative_values_not_allowed">Cannot have negative values</string>
 </resources>

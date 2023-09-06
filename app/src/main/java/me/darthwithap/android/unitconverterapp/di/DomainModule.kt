@@ -19,6 +19,7 @@ import me.darthwithap.android.unitconverterapp.domain.usecases.RecentConversionU
 import me.darthwithap.android.unitconverterapp.domain.usecases.RecentConversionsUseCase
 import me.darthwithap.android.unitconverterapp.domain.usecases.ToggleFavouriteConversionUnitsUseCase
 import me.darthwithap.android.unitconverterapp.domain.usecases.ToggleFavouriteConversionUseCase
+import me.darthwithap.android.unitconverterapp.domain.usecases.ValidateInputUseCase
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -40,7 +41,8 @@ object DomainModule {
         getFavouriteConversionUnits = FavouriteConversionUnitsUseCase(repository),
         toggleFavouriteConversionUnits = ToggleFavouriteConversionUnitsUseCase(repository),
         deleteConversionUnits = DeleteConversionUnitsUseCase(repository),
-        collections = CollectionsUseCase(repository)
+        collections = CollectionsUseCase(repository),
+        validateInput = ValidateInputUseCase()
     )
   }
 }

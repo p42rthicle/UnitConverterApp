@@ -47,6 +47,7 @@ fun UnitDisplaySelector(
     isEditable: Boolean = false,
     isDropDown: Boolean = true,
     hasMoreMenu: Boolean = false,
+    onMoreMenuClick: () -> Unit = {},
     onInputValueChanged: (String) -> Unit = { },
     onConvert: () -> Unit,
     isDropDownOpen: Boolean = false,
@@ -145,7 +146,7 @@ fun UnitDisplaySelector(
         }
       }
       if (hasMoreMenu) {
-        IconButton(onClick = { }) {
+        IconButton(onClick = onMoreMenuClick) {
           Icon(
               painter = painterResource(id = R.drawable.ic_dots_horizontal),
               contentDescription = stringResource(id = R.string.more_menu),

@@ -18,15 +18,9 @@ class BatchConvertUseCase {
       toUnits: List<SingleUnit>?
   ): Flow<ConversionResult<Map<SingleUnit, String>>> {
     return flow {
-      // Early failure checks
-      if (!input.isDigitsOnly()) {
-        emit(ConversionResult.Error(
-            ConversionException(ConversionError.INVALID_INPUT_VALUE)
-        ))
-        return@flow
-      }
-      val inputValue = input.toDouble()
-      if (inputValue < 0) {
+      val inputValue = input.toDoubleOrNull()
+      
+      if (inputValue == null) {
         emit(ConversionResult.Error(
             ConversionException(ConversionError.INVALID_INPUT_VALUE)
         ))
@@ -71,11 +65,11 @@ class BatchConvertUseCase {
   }
   
   private fun customRound(value: Double): String {
-    val rounded = round(value * 1000) / 1000.0
+    val rounded = round(value * 100000000000000) / 100000000000000.0
     return if (rounded == rounded.toInt().toDouble()) {
       rounded.toInt().toString() // returns "10" instead of "10.0"
     } else { // Trim trailing 0s in decimals
-      String.format("%.3f", rounded).trimEnd('0').trimEnd('.')
+      String.format("%.14f", rounded).trimEnd('0').trimEnd('.')
     }
   }
 }

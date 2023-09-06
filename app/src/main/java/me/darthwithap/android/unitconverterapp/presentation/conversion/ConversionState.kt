@@ -16,6 +16,8 @@ data class ConversionState(
     val isChoosingToUnit: Boolean = false,
     val isChoosingCollection: Boolean = false,
     val isBatchConversion: Boolean = false,
+    val shouldShowOptionsMenu: Boolean = false,
+    val showInfoDialog: Boolean = false,
     val isShowingHistory: Boolean = false,
     val currentCollection: UiCollection? = null,
     val collections: List<UiCollection> = emptyList(),

@@ -9,6 +9,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -21,10 +22,11 @@ fun CollectionDropDownItem(
 ) {
   DropdownMenuItem(text = {
     Row(
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
     ) {
       Icon(painter = painterResource(id = collection.drawableRes), contentDescription = collection.collection.name, tint = collection.tintColor)
-      Spacer(modifier = Modifier.width(4.dp))
+      Spacer(modifier = Modifier.width(8.dp))
       Text(text = collection.collection.name, style = MaterialTheme.typography.bodyLarge)
     }
   }, onClick = onClick, modifier = modifier)

@@ -1,18 +1,23 @@
 * Length
 0, meter, m, 1.0, 0.0
-0, kilometer, km, 0.001, 0.0
 0, centimeter, cm, 100.0, 0.0
+0, decimeter, dm, 10.0, 0.0
 0, millimeter, mm, 1000.0, 0.0
 0, mile, mi, 0.000621371, 0.0
 0, yard, yd, 1.09361, 0.0
+0, hand, h, 9.84251969, 0.0
 0, foot, ft, 3.28084, 0.0
+0, wa, วา, 0.5, 0.0
 0, inch, in, 39.3701, 0.0
+0, kilometer, km, 0.001, 0.0
 
 * Weight
 0, kilogram, kg, 1.0, 0.0
 0, gram, g, 1000.0, 0.0
 0, milligram, mg, 1000000.0, 0.0
-0, tonne, t, 0.001, 0.0
+0, assload, as, 0.3333333, 0.0
+0, metric ton, t, 0.001, 0.0
+0, tonne, tn, 0.0011023115, 0.0
 0, pound, lb, 2.20462, 0.0
 0, ounce, oz, 35.274, 0.0
 
@@ -22,37 +27,133 @@
 0, gallon, gal, 0.264172, 0.0
 0, quart, qt, 1.05669, 0.0
 0, pint, pt, 2.11338, 0.0
+0, tablespoon, tbsp, 67.6280455, 0.0
+0, inch³, in³, 61.02374409, 0.0
 0, fluid ounce, fl oz, 33.814, 0.0
-0, cubic meter, m^3, 0.001, 0.0
-0, cubic centimeter, cm^3, 1000.0, 0.0
+0, meter³, m³, 0.001, 0.0
+0, centimeter³, cm³, 1000.0, 0.0
+
+* Density
+0, gram/centimeter³, gm/cm³, 0.001, 0.0
+0, gram/meter³, gm/m³, 1000.0, 0.0
+0, kilogram/meter³, kg/m³, 1.0, 0.0
+0, milligram/meter³, mg/m³, 1000000.0, 0.0
+0, pound/foot³, lb/ft³, 0.06242796, 0.0
+0, pound/inch³, lb/in³, 0.0000361275, 0.0
+0, ounce/gallon, o/g, 0.1335265, 0.0
 
 * Temperature
 0, celsius, °C, 1.0, 0.0
-0, fahrenheit, °F, 0.555556, -32.0
+0, newton, °N, 0.33, 0.0
+0, rankine, °Ra, 1.8, 491.67
 0, kelvin, K, 1.0, 273.15
+0, delisle, °De, -1.5, 150.0
+0, fahrenheit, °F, 1.8, 32.0
+
+* Data
+0, megabyte, MB, 0.001024, 0.0
+0, bit, bit, 8192.0, 0.0
+0, byte, b, 1024.0, 0.0
+0, kilobit, kb, 8.0, 0.0
+0, megabit, mb, 0.0078125, 0.0
+0, gigabit, gb, 7.62939453125e-6, 0.0
+0, kilobyte, KB, 1.024, 0.0
+0, kibibyte, KiB, 1.0, 0.0
+0, mebibyte, MiB, 9.765625e-4, 0.0
+0, gibibyte, GiB, 9.5367431640625e-7, 0.0
+0, terabyte, TB, 1.024e-9, 0.0
+0, tebibyte, TiB, 9.31322574615478515625e-10, 0.0
+0, petabyte, PB, 1.024e-12, 0.0
+0, gigabyte, GB, 0.000001024, 0.0
 
 * Speed
-0, meters per second, m/s, 1.0, 0.0
-0, kilometers per hour, km/h, 3.6, 0.0
-0, miles per hour, mph, 2.23694, 0.0
-0, feet per second, ft/s, 3.28084, 0.0
-0, knots, kn, 1.94384, 0.0
+0, kilometer per hour, kmph, 3600.0, 0.0
+0, foot per sec, ft/s, 3280.8399, 0.0
+0, mach, ma, 2.9385836, 0.0
+0, kilometer per sec, km/s, 1.0, 0.0
+0, meter per hour, m/hr, 3600000.0, 0.0
+0, feet per second, ft/s, 3280.83995, 0.0
+0, knots, kn, 1943.84449243, 0.0
+0, meter per second, m/s, 1000.0, 0.0
+0, mile per hour, mph, 2236.93629205, 0.0
+
+* Acceleration
+0, meter/s², m/s², 1.0, 0.0
+0, centimeter/s², cm/s², 100.0, 0.0
+0, millimeter/s², mm/s², 1000.0, 0.0
+0, surface gravity, g, 0.101971621297, 0.0
+0, foot/s², ft/s², 3.280839, 0.0
+
+* Pressure
+0, atmosphere, atm, 0.0680459639, 0.0
+0, bar, bar, 0.06894757, 0.0
+0, centimeter mercury, cmM, 5.171493, 0.0
+0, inch mercury, inM, 2.036021, 0.0
+0, kilogram/cm², kg/cm², 0.07030696, 0.0
+0, kilopascal, kPa, 6.894757, 0.0
+0, megapascal, MPa, 0.006894757, 0.0
+0, torr, tr, 51.71493, 0.0
+0, pound/sq.inch, psi, 1.0, 0.0
+0, pascal, Pa, 6894.757, 0.0
+
+* Power
+0, kilowatt, kW, 1.0, 0.0
+0, megawatt, MW, 0.001, 0.0
+0, calorie per sec, cal/s, 239.0585106, 0.0
+0, horsepower, hP, 1.34102209, 0.0
+0, watt, W, 1000.0, 0.0
+
+* Energy
+0, calorie, cal, 0.238902957619, 0.0
+0, electron volt, eV, 6.24150974e+18, 0.0
+0, erg, e, 10000000.0, 0.0
+0, hoursepower-hour, HPh, 3.72506136e-7, 0.0
+0, kilocalorie, kCal, 0.000238902957619, 0.0
+0, kiloelectron volt, keV, 6.24150974e+15, 0.0
+0, kilojoule, kJ, 0.001, 0.0
+0, kilowatt-hour, kWh, 2.77777778e-7, 0.0
+0, megaelectron volt, MeV, 6.24150974e+12, 0.0
+0, megajoule, MJ, 0.000001, 0.0
+0, megawatt-hour, MWh, 2.77777778e-10, 0.0
+0, microjoule, µJ, 1000000.0, 0.0
+0, millijoule, mJ, 1000.0, 0.0
+0, watt-hour, Wh, 0.000277777778, 0.0
+0, joule, J, 1.0, 0.0
 
 * Time
-0, second, s, 3600.0, 0.0
-0, minute, min, 60.0, 0.0
-0, hour, h, 1.0, 0.0
-0, day, d, 0.0416667, 0.0
-0, week, wk, 0.00595238, 0.0
-0, month, mon, 0.00136986 , 0.0
-0, year, yr, 0.000114079, 0.0
+0, hour, hr, 24.0, 0.0
+0, second, s, 86400.0, 0.0
+0, day, d, 1.0, 0.0
+0, week, wk, 0.1428572, 0.0
+0, month, mon, 0.0333333333, 0.0
+0, year, yr, 0.0027379093, 0.0
+0, fortnight, fn, 0.07142858, 0.0
+0, decade, dc, 0.0002737909, 0.0
+0, minute, min, 1440.0, 0.0
+
+* Force
+0, newton, N, 1.0, 0.0
+0, kilonewton, kN, 0.001, 0.0
+0, pound-force, pF, 0.22480894, 0.0
+0, gram-force, gF, 101.9716213, 0.0
+0, kilogram-force, kgF, 0.1019716, 0.0
+0, pond, p, 101.9716213, 0.0
+0, sthene, st, 0.001, 0.0
+0, dyne, dyn, 100000, 0.0
 
 * Area
-0, square meter, m^2, 1.0, 0.0
-0, square kilometer, km^2, 0.000001, 0.0
-0, square centimeter, cm^2, 10000.0, 0.0
-0, square millimeter, mm^2, 1000000.0, 0.0
+0, square meter, m², 1.0, 0.0
+0, square kilometer, km², 0.000001, 0.0
+0, square centimeter, cm², 10000.0, 0.0
+0, square millimeter, mm², 1000000.0, 0.0
+0, hectare, hc, 0.0001, 0.0
 0, acre, ac, 0.000247105, 0.0
-0, square mile, mi^2, 0.000000386102, 0.0
-0, square yard, yd^2, 1.19599, 0.0
-0, square foot, ft^2, 10.7639, 0.0
+0, are, a, 0.01, 0.0
+0, mål, mal, 0.001, 0.0
+0, rood, rd, 0.00098842152, 0.0
+0, perch, pc, 0.039536861035, 0.0
+0, rai , ไร่, 0.000625, 0.0
+0, ping , 坪, 0.3024803388, 0.0
+0, square mile, mi², 0.000000386102, 0.0
+0, square yard, yd², 1.19599, 0.0
+0, square foot, ft², 10.7639, 0.0

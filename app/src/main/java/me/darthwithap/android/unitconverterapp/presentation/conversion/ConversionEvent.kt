@@ -12,6 +12,10 @@ sealed class ConversionEvent {
   object ChoosingFromUnit : ConversionEvent()
   object ChoosingToUnit : ConversionEvent()
   object ChoosingCollection : ConversionEvent()
+  object ShowOptionsMenu : ConversionEvent()
+  object HideOptionsMenu : ConversionEvent()
+  object ShowFormulaInfoDialog : ConversionEvent()
+  object HideFormulaInfoDialog : ConversionEvent()
   object StoppedChoosingFromUnit : ConversionEvent()
   object StoppedChoosingToUnit : ConversionEvent()
   object ResetConversion : ConversionEvent()
@@ -23,6 +27,7 @@ sealed class ConversionEvent {
       val unit: SingleUnit,
       val isBatchConversion: Boolean = false
   ) : ConversionEvent()
+  
   object SwapUnits : ConversionEvent()
   
   data class ChosenBatchConversionFromUnit(val unit: SingleUnit) : ConversionEvent()
